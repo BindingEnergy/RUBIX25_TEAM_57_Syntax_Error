@@ -1,5 +1,5 @@
 import React from 'react'
-
+import beachImage from '../assets/beach.jpg';
 const Features = () => {
     const features = [
         {
@@ -29,8 +29,8 @@ const Features = () => {
         },
     ];
   return (
-    <div>
-          <section id="features" className="py-16 bg-gray-50">
+    <div  >
+          <section id="features" className="py-16 bg-gray-50"  style={{ backgroundImage: `url(${beachImage})` }}>
                     <h2 className="text-center text-4xl font-bold text-gray-800 mb-8">Our Features</h2>
                     <div className="grid gap-6 max-w-5xl mx-auto">
                         {features.map((feature, index) => (

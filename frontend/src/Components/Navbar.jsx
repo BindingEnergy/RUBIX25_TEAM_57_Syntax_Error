@@ -70,7 +70,7 @@ function Navbar() {
                                 About
                             </NavLink>
                             <a
-                                href="#features"
+                                href="/features"
                                 className="block text-gray-800 hover:text-blue-600 py-2 px-4"
                             >
                                 Features
@@ -113,7 +113,7 @@ function Navbar() {
                         About
                     </NavLink>
                     <a
-                        href="#features"
+                        href="/features"
                         className="text-gray-800 hover:text-blue-600"
                     >
                         Features

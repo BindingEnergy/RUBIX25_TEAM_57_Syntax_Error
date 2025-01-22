@@ -147,6 +147,7 @@ const LandingPage = () => {
                     <div className="hero-content">
                         <div className="calendar-wrapper">
                             <Calendar
+                            // onClickDay={(day) => console.log(day)}
                                 onChange={setDate}
                                 value={date}
                                 className="custom-calendar"
