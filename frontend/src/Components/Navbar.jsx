@@ -4,25 +4,11 @@ import logo from '../assets/logo.png';
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        // Check if the user is logged in by checking local storage or cookies
-        const token = localStorage.getItem('token');
-        setIsLoggedIn(!!token);
-    }, []);
+    const navigate = useNavigate();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
-    const handleLogout = () => {
-        // Clear user data from local storage or cookies
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        setIsLoggedIn(false);
-        navigate('/login');
     };
 
     const getNavLinkClass = ({ isActive }) =>
@@ -81,21 +67,13 @@ function Navbar() {
                             >
                                 Contact
                             </NavLink>
-                            {isLoggedIn ? (
-                                <button
-                                    onClick={handleLogout}
-                                    className="block text-gray-800 hover:text-blue-600 py-2 px-4"
-                                >
-                                    Logout
-                                </button>
-                            ) : (
-                                <NavLink
-                                    to="/login"
-                                    className="block text-gray-800 hover:text-blue-600 py-2 px-4"
-                                >
-                                    Login
-                                </NavLink>
-                            )}
+
+                            <NavLink
+                                to="/login"
+                                className="block text-gray-800 hover:text-blue-600 py-2 px-4"
+                            >
+                                Login
+                            </NavLink>
                         </div>
                     )}
                 </div>
@@ -124,21 +102,13 @@ function Navbar() {
                     >
                         Contact
                     </NavLink>
-                    {isLoggedIn ? (
-                        <button
-                            onClick={handleLogout}
-                            className="text-gray-800 hover:text-blue-600"
-                        >
-                            Logout
-                        </button>
-                    ) : (
-                        <NavLink
-                            to="/login"
-                            className="text-gray-800 hover:text-blue-600"
-                        >
-                            Login
-                        </NavLink>
-                    )}
+
+                    <NavLink
+                        to="/login"
+                        className="text-gray-800 hover:text-blue-600"
+                    >
+                        Login
+                    </NavLink>
                 </div>
             </nav>
         </>
