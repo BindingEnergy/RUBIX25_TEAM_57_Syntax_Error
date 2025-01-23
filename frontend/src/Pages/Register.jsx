@@ -25,7 +25,7 @@ export default function Register() {
 
     useEffect(() => {
         if (localStorage.getItem(import.meta.env.VITE_BACKEND_URL)) {
-            // navigate('/');
+            navigate('/chat');
         }
     }, []);
 

@@ -16,7 +16,7 @@ export default function ChatContainer({ currentChat, socket }) {
     useEffect(() => {
         const fetchMessages = async () => {
             const data = await JSON.parse(
-                localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+                localStorage.getItem(import.meta.env.VITE_BACKEND_URL)
             );
             const response = await axios.post(recieveMessageRoute, {
                 from: data._id,
@@ -32,7 +32,7 @@ export default function ChatContainer({ currentChat, socket }) {
         const getCurrentChat = async () => {
             if (currentChat) {
                 await JSON.parse(
-                    localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+                    localStorage.getItem(import.meta.env.VITE_BACKEND_URL)
                 )._id;
             }
         };
@@ -41,7 +41,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
     const handleSendMsg = async (msg, fileUrl = null) => {
         const data = await JSON.parse(
-            localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+            localStorage.getItem(import.meta.env.VITE_BACKEND_URL)
         );
         socket.current.emit('send-msg', {
             to: currentChat._id,
@@ -78,7 +78,7 @@ export default function ChatContainer({ currentChat, socket }) {
     }, [messages]);
 
     const currentUserId = JSON.parse(
-        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+        localStorage.getItem(import.meta.env.VITE_BACKEND_URL)
     )._id;
 
     const handleFileClick = (fileUrl) => {

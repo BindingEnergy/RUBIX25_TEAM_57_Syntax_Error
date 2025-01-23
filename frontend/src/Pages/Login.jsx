@@ -19,7 +19,7 @@ export default function Login() {
     };
     useEffect(() => {
         if (localStorage.getItem(import.meta.env.VITE_BACKEND_URL)) {
-            // navigate('/');
+            navigate('/chat');
         }
     }, []);
 

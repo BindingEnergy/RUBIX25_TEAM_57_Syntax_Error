@@ -1,123 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 
-export default function Contacts({ contacts, currentUser }) {
+export default function Contacts({ contacts, changeChat }) {
     const [currentUserName, setCurrentUserName] = useState(undefined);
     const [currentUserImage, setCurrentUserImage] = useState(undefined);
     const [currentSelected, setCurrentSelected] = useState(undefined);
 
     useEffect(() => {
-        if (currentUser) {
-            setCurrentUserName(currentUser.username);
-            setCurrentUserImage(currentUser.avatarImage);
-        }
-    }, [currentUser]);
+        const fetchData = async () => {
+            const data = await JSON.parse(
+                localStorage.getItem(import.meta.env.VITE_BACKEND_URL)
+            );
+            setCurrentUserName(data.username);
+            setCurrentUserImage(data.avatarImage);
+        };
+        fetchData();
+    }, []);
 
     const changeCurrentChat = (index, contact) => {
         setCurrentSelected(index);
-        // Assuming you have a function to handle chat change
-        // handleChatChange(contact);
+        changeChat(contact);
     };
 
     return (
-        <Container>
-            <div className="brand">
-                <h3>Contacts</h3>
-            </div>
-            <div className="contacts">
-                {contacts.map((contact, index) => (
-                    <div
-                        key={contact._id}
-                        className={`contact ${
-                            index === currentSelected ? 'selected' : ''
-                        }`}
-                        onClick={() => changeCurrentChat(index, contact)}
-                    >
-                        <div className="avatar">
-                            <img src={contact.avatarImage} alt="" />
-                        </div>
-                        <div className="username">
-                            <h3>{contact.username}</h3>
+        <>
+            {currentUserImage && currentUserName && (
+                <div className="flex flex-col h-screen bg-gray-900 text-white">
+                    {/* Contacts List */}
+                    <div className="flex-1 overflow-y-auto">
+                        <div className="flex flex-col items-center gap-4 py-4">
+                            {contacts.map((contact, index) => (
+                                <div
+                                    key={contact._id}
+                                    className={`flex items-center gap-4 w-11/12 max-w-md p-3 rounded-lg cursor-pointer transition-all ${
+                                        index === currentSelected
+                                            ? 'bg-indigo-600'
+                                            : 'bg-gray-800 hover:bg-gray-700'
+                                    }`}
+                                    onClick={() =>
+                                        changeCurrentChat(index, contact)
+                                    }
+                                >
+                                    {/* Avatar */}
+                                    <div className="w-12 h-12 overflow-hidden rounded-full">
+                                        <img
+                                            src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                                            alt="avatar"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    {/* Username */}
+                                    <h3 className="text-base font-medium">
+                                        {contact.username}
+                                    </h3>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                ))}
-            </div>
-            {currentUserName && currentUserImage && (
-                <div className="current-user">
-                    <div className="avatar">
-                        <img src={currentUserImage} alt="avatar" />
-                    </div>
-                    <div className="username">
-                        <h2>{currentUserName}</h2>
+
+                    {/* Current User */}
+                    <div className="flex items-center justify-center gap-4 py-4 bg-gray-800">
+                        <div className="w-16 h-16 overflow-hidden rounded-full">
+                            <img
+                                src={`data:image/svg+xml;base64,${currentUserImage}`}
+                                alt="Current User Avatar"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <h2 className="text-lg font-semibold">
+                            {currentUserName}
+                        </h2>
                     </div>
                 </div>
             )}
-        </Container>
+        </>
     );
 }
-
-const Container = styled.div`
-    display: grid;
-    grid-template-rows: 10% 75% 15%;
-    overflow: hidden;
-    background-color: #080420;
-    .brand {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        h3 {
-            color: white;
-            text-transform: uppercase;
-        }
-    }
-    .contacts {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow: auto;
-        .contact {
-            background-color: #ffffff34;
-            min-height: 5rem;
-            cursor: pointer;
-            width: 90%;
-            border-radius: 0.2rem;
-            padding: 0.4rem;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            transition: 0.5s ease-in-out;
-            .avatar {
-                img {
-                    height: 3rem;
-                }
-            }
-            .username {
-                h3 {
-                    color: white;
-                }
-            }
-        }
-        .selected {
-            background-color: #9a86f3;
-        }
-    }
-    .current-user {
-        background-color: #0d0d30;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        .avatar {
-            img {
-                height: 4rem;
-                max-inline-size: 100%;
-            }
-        }
-        .username {
-            h2 {
-                color: white;
-            }
-        }
-    }
-`;
