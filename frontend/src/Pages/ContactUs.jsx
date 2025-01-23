@@ -1,46 +1,59 @@
 import React from 'react';
 import beachImage from '../assets/beach.jpg';
 export default function Contact() {
-    const [result, setResult] = React.useState("");
+    const [result, setResult] = React.useState('');
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        setResult("Sending...");
+        setResult('Sending...');
         const formData = new FormData(event.target);
 
-        formData.append("access_key", "541ebeb4-1b99-4ec7-8539-45c99d6dcc53");
+        formData.append('access_key', '3ae3f409-08ba-484a-a645-006c634aad4f');
 
         try {
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
                 body: formData,
             });
 
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                throw new Error('Network response was not ok');
             }
 
             const data = await response.json();
 
             if (data.success) {
                 event.target.reset();
-                setResult("Form Submitted Successfully!");
+                setResult('Form Submitted Successfully!');
             } else {
-                console.error("Error", data);
+                console.error('Error', data);
                 setResult(data.message);
             }
         } catch (error) {
-            console.error("Error submitting form:", error);
-            setResult("Failed to submit form. Please try again.");
+            console.error('Error submitting form:', error);
+            setResult('Failed to submit form. Please try again.');
         }
     };
 
     return (
-        <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-b from-blue-100 to-pink-100 rounded-lg shadow-md mt-16 h-screen"  style={{ backgroundImage: `url(${beachImage})`, backgroundSize: 'cover' }}>
-            <h1 className="text-4xl font-bold text-gray-800 mb-8">FeedBack Form</h1>
+        <div
+            className="flex flex-col items-center justify-center p-6 bg-gradient-to-b from-blue-100 to-pink-100 rounded-lg shadow-md mt-16 h-screen"
+            style={{
+                backgroundImage: `url(${beachImage})`,
+                backgroundSize: 'cover',
+            }}
+        >
+            <h1 className="text-4xl font-bold text-gray-800 mb-8">
+                FeedBack Form
+            </h1>
             <form onSubmit={onSubmit} className="space-y-6 max-w-md w-full">
                 <div className="flex flex-col">
-                    <label htmlFor="name" className="text-gray-800 font-semibold">Name</label>
+                    <label
+                        htmlFor="name"
+                        className="text-gray-800 font-semibold"
+                    >
+                        Name
+                    </label>
                     <input
                         type="text"
                         id="name"
@@ -50,7 +63,12 @@ export default function Contact() {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="email" className="text-gray-800 font-semibold">Email</label>
+                    <label
+                        htmlFor="email"
+                        className="text-gray-800 font-semibold"
+                    >
+                        Email
+                    </label>
                     <input
                         type="email"
                         id="email"
@@ -60,7 +78,12 @@ export default function Contact() {
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="message" className="text-gray-800 font-semibold">Message</label>
+                    <label
+                        htmlFor="message"
+                        className="text-gray-800 font-semibold"
+                    >
+                        Message
+                    </label>
                     <textarea
                         id="message"
                         name="message"

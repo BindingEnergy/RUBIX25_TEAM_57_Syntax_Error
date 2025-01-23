@@ -62,7 +62,10 @@ module.exports.addMessage = async (req, res, next) => {
             sendEmail(
                 recipientEmail,
                 'New Message Received!',
-                `You have received a new message from ${senderUsername}.`
+                `You have received a new message from ${senderUsername}.
+                ~ TEAM UnlockIT ~
+                
+                `
             );
         }
 
