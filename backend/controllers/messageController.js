@@ -49,18 +49,39 @@ module.exports.addMessage = async (req, res, next) => {
             sender: from,
         });
 
-        sendEmail(
-            recipientEmail,
-            'New Message Received !',
-            `You have received a new message from ${from}.`
-        );
+        // Fetch the recipient's email address
+        const recipient = await User.findById(to);
+        const recipientEmail = recipient.email;
+
+        // Fetch the sender's username
+        const sender = await User.findById(from);
+        const senderUsername = sender.username;
+
+        // Send email notification for normal text messages
+        if (!fileUrl) {
+            sendEmail(
+                recipientEmail,
+                'New Message Received!',
+                `You have received a new message from ${senderUsername}.`
+            );
+        }
+
+        // Send email notification for files with unlock date
+        if (fileUrl && unlockDateTime) {
+            sendEmail(
+                recipientEmail,
+                'New File Received!',
+                `You have received a new file from ${senderUsername}. It will unlock on ${new Date(
+                    unlockDateTime
+                ).toLocaleString()}.`
+            );
+        }
 
         if (data)
             return res.json({
                 msg: 'Message added successfully.',
                 message: data.message,
             });
-        else return res.json({ msg: 'Failed to add message to the database' });
     } catch (ex) {
         next(ex);
     }
