@@ -11,7 +11,7 @@ import {
 import Login from './Pages/Login.jsx';
 import LandingPage from './Pages/LandingPage.jsx';
 import About from './Pages/About.jsx';
-import Features from './Pages/features.jsx';
+import Features from './Pages/Features.jsx';
 import ContactUs from './Pages/ContactUs.jsx';
 import Register from './Pages/Register.jsx';
 import Chat from './Pages/Chat.jsx';

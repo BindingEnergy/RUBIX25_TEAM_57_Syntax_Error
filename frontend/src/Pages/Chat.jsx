@@ -7,6 +7,7 @@ import { allUsersRoute, host } from '../utils/APIRoutes';
 import ChatContainer from '../components/ChatContainer';
 import Contacts from '../components/Contacts';
 import Welcome from '../components/Welcome';
+import bg from '../assets/beach.jpg';
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -76,14 +77,14 @@ export default function Chat() {
 }
 
 const Container = styled.div`
-  height: 100vh;
+  height: 122vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background: url(${bg}) no-repeat center center/cover;
   .container {
     height: 85vh;
     width: 85vw;
