@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { registerRoute } from '../utils/APIRoutes';
+import bg from '../assets/beach.jpg';
 
 export default function Register() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Register() {
 
     useEffect(() => {
         if (localStorage.getItem(import.meta.env.VITE_BACKEND_URL)) {
-            navigate('/chat');
+            // navigate('/');
         }
     }, []);
 
@@ -136,7 +137,7 @@ const FormContainer = styled.div`
     justify-content: center;
     gap: 1rem;
     align-items: center;
-    background-color: #131324;
+    background: url(${bg}) no-repeat center center/cover;
     .brand {
         display: flex;
         align-items: center;

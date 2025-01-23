@@ -6,7 +6,7 @@ import Logo from '../assets/logo.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginRoute } from '../utils/APIRoutes';
-
+import bg from '../assets/beach.jpg';
 export default function Login() {
     const navigate = useNavigate();
     const [values, setValues] = useState({ username: '', password: '' });
@@ -19,7 +19,7 @@ export default function Login() {
     };
     useEffect(() => {
         if (localStorage.getItem(import.meta.env.VITE_BACKEND_URL)) {
-            navigate('/chat');
+            // navigate('/');
         }
     }, []);
 
@@ -66,8 +66,8 @@ export default function Login() {
             <FormContainer>
                 <form action="" onSubmit={(event) => handleSubmit(event)}>
                     <div className="brand">
-                        {/* <img src={Logo} alt="logo" /> */}
-                        {/* <h1>snappy</h1> */}
+                        <img src={Logo} alt="logo" />
+                        <h1>Time Capsule</h1>
                     </div>
                     <input
                         type="text"
@@ -75,17 +75,29 @@ export default function Login() {
                         name="username"
                         onChange={(e) => handleChange(e)}
                         min="3"
+                        className="bg-transparent border border-indigo-500 border-2 rounded-md text-white w-full py-2 px-4 text-base"
                     />
                     <input
                         type="password"
                         placeholder="Password"
                         name="password"
                         onChange={(e) => handleChange(e)}
+                        className="bg-transparent border border-indigo-500 border-2 rounded-md text-white w-full py-2 px-4 text-base"
                     />
-                    <button type="submit">Log In</button>
-                    <span>
-                        Don't have an account ?{' '}
-                        <Link to="/register">Create One.</Link>
+                    <button
+                        type="submit"
+                        className="bg-indigo-500 text-white py-2 px-4 rounded-md font-bold text-base uppercase hover:bg-indigo-500"
+                    >
+                        Log In
+                    </button>
+                    <span className="text-white uppercase">
+                        Don't have an account?{' '}
+                        <Link
+                            to="/register"
+                            className="text-indigo-500 font-bold no-underline"
+                        >
+                            Create One.
+                        </Link>
                     </span>
                 </form>
             </FormContainer>
@@ -102,7 +114,7 @@ const FormContainer = styled.div`
     justify-content: center;
     gap: 1rem;
     align-items: center;
-    background-color: #131324;
+    background: url(${bg}) no-repeat center center/cover;
     .brand {
         display: flex;
         align-items: center;
@@ -121,9 +133,10 @@ const FormContainer = styled.div`
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        background-color: #00000076;
+        background-color: rgba(0, 0, 0, 0.7);
         border-radius: 2rem;
         padding: 5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     input {
         background-color: transparent;
@@ -148,8 +161,9 @@ const FormContainer = styled.div`
         border-radius: 0.4rem;
         font-size: 1rem;
         text-transform: uppercase;
+        transition: background-color 0.3s ease;
         &:hover {
-            background-color: #4e0eff;
+            background-color: #3a0ecf;
         }
     }
     span {

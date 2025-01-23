@@ -25,7 +25,9 @@ export default function ChatContainer({ currentChat, socket }) {
             setMessages(response.data);
         };
 
-        fetchMessages();
+        if (currentChat) {
+            fetchMessages();
+        }
     }, [currentChat]);
 
     useEffect(() => {
@@ -209,75 +211,97 @@ export default function ChatContainer({ currentChat, socket }) {
 
     return (
         <Container>
-            <div className="chat-header">
-                <div className="user-details">
-                    <div className="avatar">
-                        <img
-                            src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                            alt=""
-                        />
-                    </div>
-                    <div className="username">
-                        <h3>{currentChat.username}</h3>
-                    </div>
-                </div>
-                <Logout />
-            </div>
-            <div className="chat-messages">
-                {messages.map((message) => {
-                    return (
-                        <div ref={scrollRef} key={uuidv4()}>
-                            <div
-                                className={`message ${
-                                    message.fromSelf ? 'sended' : 'recieved'
-                                }`}
-                            >
-                                <div className="content ">
-                                    {renderMessageContent(message)}
-                                </div>
+            {currentChat && (
+                <>
+                    <div className="chat-header">
+                        <div className="user-details">
+                            <div className="avatar">
+                                <img
+                                    src={`data:image/svg+xml;utf8,${currentChat.avatarImage}`}
+                                    alt=""
+                                />
+                            </div>
+                            <div className="username">
+                                <h3>{currentChat.username}</h3>
                             </div>
                         </div>
-                    );
-                })}
-            </div>
-            <ChatInput
-                handleSendMsg={handleSendMsg}
-                from={currentUserId}
-                to={currentChat._id}
-            />
-            {isModalOpen && (
-                <Modal>
-                    <ModalContent>
-                        <CloseButton onClick={() => setIsModalOpen(false)}>
-                            X
-                        </CloseButton>
-                        {selectedFile && (
-                            <>
-                                {['jpg', 'jpeg', 'png', 'gif'].includes(
-                                    selectedFile.split('.').pop().toLowerCase()
-                                ) && <img src={selectedFile} alt="Preview" />}
-                                {['mp4', 'webm', 'ogg'].includes(
-                                    selectedFile.split('.').pop().toLowerCase()
-                                ) && (
-                                    <video controls>
-                                        <source
-                                            src={selectedFile}
-                                            type={`video/${selectedFile
+                        <Logout />
+                    </div>
+                    <div className="chat-messages">
+                        {messages.map((message) => {
+                            return (
+                                <div ref={scrollRef} key={uuidv4()}>
+                                    <div
+                                        className={`message ${
+                                            message.fromSelf
+                                                ? 'sended'
+                                                : 'recieved'
+                                        }`}
+                                    >
+                                        <div className="content ">
+                                            {renderMessageContent(message)}
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <ChatInput
+                        handleSendMsg={handleSendMsg}
+                        from={currentUserId}
+                        to={currentChat._id}
+                    />
+                    {isModalOpen && (
+                        <Modal>
+                            <ModalContent>
+                                <CloseButton
+                                    onClick={() => setIsModalOpen(false)}
+                                >
+                                    X
+                                </CloseButton>
+                                {selectedFile && (
+                                    <>
+                                        {['jpg', 'jpeg', 'png', 'gif'].includes(
+                                            selectedFile
                                                 .split('.')
                                                 .pop()
-                                                .toLowerCase()}`}
-                                        />
-                                        Your browser does not support the video
-                                        element.
-                                    </video>
+                                                .toLowerCase()
+                                        ) && (
+                                            <img
+                                                src={selectedFile}
+                                                alt="Preview"
+                                            />
+                                        )}
+                                        {['mp4', 'webm', 'ogg'].includes(
+                                            selectedFile
+                                                .split('.')
+                                                .pop()
+                                                .toLowerCase()
+                                        ) && (
+                                            <video controls>
+                                                <source
+                                                    src={selectedFile}
+                                                    type={`video/${selectedFile
+                                                        .split('.')
+                                                        .pop()
+                                                        .toLowerCase()}`}
+                                                />
+                                                Your browser does not support
+                                                the video element.
+                                            </video>
+                                        )}
+                                        <DownloadButton
+                                            href={selectedFile}
+                                            download
+                                        >
+                                            Download
+                                        </DownloadButton>
+                                    </>
                                 )}
-                                <DownloadButton href={selectedFile} download>
-                                    Download
-                                </DownloadButton>
-                            </>
-                        )}
-                    </ModalContent>
-                </Modal>
+                            </ModalContent>
+                        </Modal>
+                    )}
+                </>
             )}
         </Container>
     );
