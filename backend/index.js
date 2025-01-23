@@ -3,8 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const messageRoutes = require('./routes/messages');
+const testRoutes = require('./routes/testRoutes');
 const app = express();
 const socket = require('socket.io');
+const initializeScheduler = require('./utils/scheduler');
 require('dotenv').config();
 
 app.use(cors());
@@ -28,10 +30,12 @@ app.get('/ping', (_req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/test', testRoutes); // Add this line
 
 const server = app.listen(process.env.PORT, () =>
     console.log(`Server started on ${process.env.PORT}`)
 );
+
 const io = socket(server, {
     cors: {
         origin: 'http://localhost:5173',
@@ -53,3 +57,6 @@ io.on('connection', (socket) => {
         }
     });
 });
+
+// Initialize the scheduler
+initializeScheduler();
