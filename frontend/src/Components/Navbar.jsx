@@ -68,12 +68,12 @@ function Navbar() {
                                 Contact
                             </NavLink>
 
-                            <NavLink
+                            {/* <NavLink
                                 to="/login"
                                 className="block text-gray-800 hover:text-blue-600 py-2 px-4"
                             >
                                 Login
-                            </NavLink>
+                            </NavLink> */}
                         </div>
                     )}
                 </div>
@@ -103,12 +103,12 @@ function Navbar() {
                         Contact
                     </NavLink>
 
-                    <NavLink
+                    {/* <NavLink
                         to="/login"
                         className="text-gray-800 hover:text-blue-600"
                     >
                         Login
-                    </NavLink>
+                    </NavLink> */}
                 </div>
             </nav>
         </>

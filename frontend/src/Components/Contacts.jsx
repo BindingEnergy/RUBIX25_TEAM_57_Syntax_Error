@@ -7,12 +7,23 @@ export default function Contacts({ contacts, changeChat }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await JSON.parse(
-                localStorage.getItem(import.meta.env.VITE_BACKEND_URL)
-            );
-            setCurrentUserName(data.username);
-            setCurrentUserImage(data.avatarImage);
+            try {
+                const storedData = localStorage.getItem(import.meta.env.VITE_BACKEND_URL);
+                if (!storedData) {
+                    console.error('User data not found in localStorage');
+                    return;
+                }
+
+                const data = JSON.parse(storedData);
+                setCurrentUserName(data.username || 'Anonymous'); // Fallback for missing username
+                setCurrentUserImage(
+                    data.avatarImage || 'https://example.com/default-avatar.png' // Fallback for missing avatar
+                );
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
         };
+
         fetchData();
     }, []);
 
@@ -43,14 +54,17 @@ export default function Contacts({ contacts, changeChat }) {
                                     {/* Avatar */}
                                     <div className="w-12 h-12 overflow-hidden rounded-full">
                                         <img
-                                            src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                                            src={`data:image/svg+xml;base64,${
+                                                contact.avatarImage ||
+                                                'default-avatar-base64' // Replace with a valid default Base64 image
+                                            }`}
                                             alt="avatar"
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
                                     {/* Username */}
                                     <h3 className="text-base font-medium">
-                                        {contact.username}
+                                        {contact.username || 'Unknown'} {/* Fallback for missing username */}
                                     </h3>
                                 </div>
                             ))}
@@ -61,7 +75,7 @@ export default function Contacts({ contacts, changeChat }) {
                     <div className="flex items-center justify-center gap-4 py-4 bg-gray-800">
                         <div className="w-16 h-16 overflow-hidden rounded-full">
                             <img
-                                src={`data:image/svg+xml;base64,${currentUserImage}`}
+                                src={currentUserImage}
                                 alt="Current User Avatar"
                                 className="w-full h-full object-cover"
                             />

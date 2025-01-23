@@ -37,6 +37,7 @@ export default function Contact() {
 
     return (
         <div className="flex flex-col items-center justify-center p-6 bg-gradient-to-b from-blue-100 to-pink-100 rounded-lg shadow-md mt-16 h-screen"  style={{ backgroundImage: `url(${beachImage})`, backgroundSize: 'cover' }}>
+            <h1 className="text-4xl font-bold text-gray-800 mb-8">FeedBack Form</h1>
             <form onSubmit={onSubmit} className="space-y-6 max-w-md w-full">
                 <div className="flex flex-col">
                     <label htmlFor="name" className="text-gray-800 font-semibold">Name</label>
