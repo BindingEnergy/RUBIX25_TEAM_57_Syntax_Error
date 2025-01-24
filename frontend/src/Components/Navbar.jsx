@@ -19,7 +19,7 @@ function Navbar() {
             <nav className="fixed top-0 left-0 w-full p-4 bg-white bg-opacity-80 flex justify-between items-center shadow-md backdrop-blur-md z-50">
                 <div className="flex items-center gap-4">
                     <img src={logo} alt="Logo" className="h-10" />
-                    <span className="text-2xl font-bold">Time Capsule</span>
+                    <span className="text-2xl font-bold">UnlockIT</span>
                 </div>
                 <div className="md:hidden">
                     <button

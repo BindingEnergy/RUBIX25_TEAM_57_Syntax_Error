@@ -56,18 +56,18 @@ const AboutPage = () => {
               key={index}
               className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105"
             >
-              <img
+              {/* <img
                 src={member.image}
                 alt={member.name}
                 className="w-full h-48 object-cover"
-              />
+              /> */}
               <div className="p-6">
                 <h3 className="text-2xl font-semibold text-gray-900">
                   {member.name}
                 </h3>
-                <p className="text-blue-500 text-sm font-medium">
+                {/* <p className="text-blue-500 text-sm font-medium">
                   {member.role}
-                </p>
+                </p> */}
                 <p className="text-gray-700 mt-3">{member.bio}</p>
               </div>
             </div>
